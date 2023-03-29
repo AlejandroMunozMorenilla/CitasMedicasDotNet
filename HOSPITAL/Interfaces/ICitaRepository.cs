@@ -5,10 +5,10 @@ namespace Hospital.Repository
 {
     public interface ICitaRepository
     {
-        ICollection<Cita> GetAll();
-        Cita GetById(int id);
-        Cita Insert(Cita cita);
-        Cita Update(Cita cita);
-        Cita Delete(int id);
+        public ICollection<Cita> GetAll();
+        public Cita GetById(int id);
+        public void Insert(Cita cita);
+        public void Update(Cita cita);
+        public void Delete(int id);
     }
 }

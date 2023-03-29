@@ -3,10 +3,11 @@ using Hospital.DTO;
 using Hospital.Model;
 using Hospital.Repository;
 using HOSPITAL.Data;
+using HOSPITAL.Interfaces;
 
 namespace HOSPITAL.Services
 {
-    public class MedicoService
+    public class MedicoService : IMedicoService
     {
         private readonly IMedicoRepository _repo;
         private readonly HospitalContext _context;
@@ -27,19 +28,17 @@ namespace HOSPITAL.Services
         {
             return _mapper.Map<Medico, MedicoDTO>(_repo.GetById(id));
         }
-        public MedicoDTO InsertMedico(MedicoDTO medicoDTO)
+        public void InsertMedico(MedicoDTO medicoDTO)
         {
             _repo.Insert(_mapper.Map<MedicoDTO, Medico>(medicoDTO));
-            return medicoDTO;
         }        
-        public MedicoDTO DeleteMedico(int id)
+        public void DeleteMedico(int id)
         {
-            return _mapper.Map<Medico, MedicoDTO>(_repo.Delete(id));
+            _repo.Delete(id);
         }
-        public MedicoDTO UpdateMedico(MedicoDTO medicoDTO)
+        public void UpdateMedico(MedicoDTO medicoDTO)
         {
-            Medico paciente = _mapper.Map<MedicoDTO, Medico>(medicoDTO);
-            return _mapper.Map<Medico, MedicoDTO>(_repo.Update(paciente));
+            _repo.Update(_mapper.Map<MedicoDTO, Medico>(medicoDTO));
         }
     }
 }

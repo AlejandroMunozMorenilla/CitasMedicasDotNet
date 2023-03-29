@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using HOSPITAL.Data;
-using Hospital.Model;
+﻿using Microsoft.AspNetCore.Mvc;
 using Hospital.DTO;
-using HOSPITAL.Services;
+using HOSPITAL.Interfaces;
+using HOSPITAL.Exceptions;
 
 namespace HOSPITAL.Controllers
 {
@@ -16,9 +9,9 @@ namespace HOSPITAL.Controllers
     [ApiController]
     public class CitasController : Controller
     {
-        private readonly CitaService _citaService;
+        private readonly ICitaService _citaService;
 
-        public CitasController(CitaService citaService)
+        public CitasController(ICitaService citaService)
         {
             _citaService = citaService;
         }
@@ -36,12 +29,57 @@ namespace HOSPITAL.Controllers
         {
             return Ok(_citaService.GetCitaById(citaId));
         }
+
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(CitaDTO))]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public IActionResult PostCita(CitaDTO cita)
         {
-            return Ok(_citaService.InsertCita(cita));
+            try
+            {
+                _citaService.InsertCita(cita);
+                return Ok();
+            }
+            catch (InsertException ie)
+            {
+                return StatusCode(500, ie.Message);
+            }
+        }
+
+        [HttpPut]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(500)]
+        public IActionResult PutCita(CitaDTO cita)
+        {
+            try
+            {
+                _citaService.UpdateCita(cita);
+                return Ok();
+            }
+            catch (UpdateException ue)
+            {
+                return StatusCode(500, ue.Message);
+            }
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(200, Type = typeof(CitaDTO))]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCita(int id)
+        {
+            try
+            {
+                _citaService.DeleteCita(id);
+                return Ok();
+            }
+            catch (NotFoundException nfe)
+            {
+                return NotFound();
+            }
+            catch (DeleteException de)
+            {
+                return StatusCode(500, de.Message);
+            }
         }
     }
 }

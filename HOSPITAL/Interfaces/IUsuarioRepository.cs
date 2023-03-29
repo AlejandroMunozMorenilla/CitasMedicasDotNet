@@ -4,11 +4,11 @@ namespace Hospital.Repository
 {
     public interface IUsuarioRepository
     {
-        ICollection<Usuario> GetAll();
-        Usuario GetById(int id);
-        void Insert(Usuario usuario);
-        void Update(Usuario usuario);
-        void Delete(int id);
-        void Save();
+        public ICollection<Usuario> GetAll();
+        public Usuario GetById(int id);
+        public void Insert(Usuario usuario);
+        public void Update(Usuario usuario);
+        public void Delete(int id);
+        public void Save();
     }
 }

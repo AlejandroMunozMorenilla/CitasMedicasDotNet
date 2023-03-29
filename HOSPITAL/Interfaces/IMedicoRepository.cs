@@ -4,10 +4,10 @@ namespace Hospital.Repository
 {
     public interface IMedicoRepository
     {
-        ICollection<Medico> GetAll();
-        Medico GetById(int id);
-        Medico Insert(Medico medico);
-        Medico Update(Medico medico);
-        Medico Delete(int id);
+        public ICollection<Medico> GetAll();
+        public Medico GetById(int id);
+        public void Insert(Medico medico);
+        public void Update(Medico medico);
+        public void Delete(int id);
     }
 }

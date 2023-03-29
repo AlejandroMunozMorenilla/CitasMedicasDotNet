@@ -1,6 +1,8 @@
 ﻿using Hospital.Model;
 using Hospital.Repository;
 using HOSPITAL.Data;
+using HOSPITAL.Exceptions;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace HOSPITAL.Repositories
@@ -14,13 +16,6 @@ namespace HOSPITAL.Repositories
             _context = context;
         }
 
-        public Medico Delete(int id)
-        {
-            Medico medico = GetById(id);
-            _context.Medicos.Remove(medico);
-            return medico;
-        }
-
         public ICollection<Medico> GetAll()
         {
             return _context.Medicos.ToList<Medico>();
@@ -31,16 +26,32 @@ namespace HOSPITAL.Repositories
             return _context.Medicos.FirstOrDefault(medico => medico.Id == id);
         }
 
-        public Medico Insert(Medico medico)
+        public void Insert(Medico medico)
         {
             _context.Medicos.Add(medico);
-            return GetById(medico.Id);
+            if (!Save())
+                throw new InsertException("No se ha podido insertar el medico");
         }
 
-        public Medico Update(Medico medico)
+        public void Update(Medico medico)
         {
             _context.Medicos.Update(medico);
-            return GetById(medico.Id);
+            if (!Save()) 
+                throw new UpdateException("No se ha podido actualizar el medico");
+        }
+
+        public void Delete(int id)
+        {
+            Medico medico = GetById(id);
+            _context.Medicos.Remove(medico);
+            if (!Save())
+                throw new DeleteException("No se ha podido eliminar el medico");
+        }
+
+        public bool Save()
+        {
+            int resultado = _context.SaveChanges();
+            return resultado > 0;
         }
     }
 }

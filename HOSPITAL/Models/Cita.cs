@@ -14,8 +14,6 @@ namespace Hospital.Model
 
         [ForeignKey("DiagnosticoId")]
         public Diagnostico Diagnostico { get; set; }
-        [ForeignKey("MedicoId")]
-
         public int DiagnosticoId { get; set; }
     }
 }

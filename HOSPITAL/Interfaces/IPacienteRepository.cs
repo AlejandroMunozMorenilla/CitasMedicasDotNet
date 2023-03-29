@@ -4,10 +4,10 @@ namespace Hospital.Repository
 {
     public interface IPacienteRepository
     {
-        ICollection<Paciente> GetAll();
-        Paciente GetById(int id);
-        Paciente Insert(Paciente paciente);
-        Paciente Update(Paciente paciente);
-        Paciente Delete(int id);
+        public ICollection<Paciente> GetAll();
+        public Paciente GetById(int id);
+        public void Insert(Paciente paciente);
+        public void Update(Paciente paciente);
+        public void Delete(int id);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Hospital.Model;
 using Hospital.Repository;
 using HOSPITAL.Data;
+using HOSPITAL.Exceptions;
+using HOSPITAL.Interfaces;
 
 namespace HOSPITAL.Repositories
 {
@@ -13,13 +15,6 @@ namespace HOSPITAL.Repositories
             _context = context;
         }
 
-        public Diagnostico Delete(int id)
-        {
-            Diagnostico diagnostico = GetById(id);
-            _context.Diagnosticos.Remove(diagnostico);
-            return diagnostico;
-        }
-
         public ICollection<Diagnostico> GetAll()
         {
             return _context.Diagnosticos.ToList<Diagnostico>();
@@ -27,19 +22,36 @@ namespace HOSPITAL.Repositories
 
         public Diagnostico GetById(int id)
         {
-            return _context.Diagnosticos.FirstOrDefault(diagnostico => diagnostico.Id == id);
-        }
+            Diagnostico diagnostico = _context.Diagnosticos.FirstOrDefault(diagnostico => diagnostico.Id == id);
+            return (diagnostico != null)?diagnostico: throw new NotFoundException();
+        }   
 
-        public Diagnostico Insert(Diagnostico diagnostico)
+        public void Insert(Diagnostico diagnostico)
         {
             _context.Diagnosticos.Add(diagnostico);
-            return diagnostico;
+            if (!Save()) 
+                throw new InsertException("No se ha podido insertar el diagnostico");
         }
 
-        public Diagnostico Update(Diagnostico diagnostico)
+        public void Update(Diagnostico diagnostico)
         {
             _context.Diagnosticos.Update(diagnostico);
-            return GetById(diagnostico.Id);
+            if (!Save()) 
+                throw new UpdateException("No se ha podido actualizar el diagnostico");
+        }
+
+        public void Delete(int id)
+        {
+            Diagnostico diagnostico = GetById(id);
+            _context.Diagnosticos.Remove(diagnostico);
+            if (!Save())
+                throw new DeleteException("No se ha podido eliminar el diagnostico");
+        }
+
+        public bool Save()
+        { 
+            int resultado = _context.SaveChanges();
+            return resultado > 0;
         }
     }
 }

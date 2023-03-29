@@ -15,10 +15,5 @@ namespace HOSPITAL.Data
         public DbSet<Cita> Citas { get; set; }
         public DbSet<Diagnostico> Diagnosticos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Hospital.DTO.CitaDTO>? CitaDTO { get; set; }
-        public DbSet<Hospital.DTO.DiagnosticoDTO>? DiagnosticoDTO { get; set; }
-        public DbSet<Hospital.DTO.MedicoDTO>? MedicoDTO { get; set; }
-        public DbSet<Hospital.DTO.PacienteDTO>? PacienteDTO { get; set; }
-        public DbSet<Hospital.DTO.UsuarioDTO>? UsuarioDTO { get; set; }
     }
 }

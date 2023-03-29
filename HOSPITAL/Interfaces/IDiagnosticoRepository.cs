@@ -4,10 +4,10 @@ namespace Hospital.Repository
 {
     public interface IDiagnosticoRepository
     {
-        ICollection<Diagnostico> GetAll();
-        Diagnostico GetById(int id);
-        Diagnostico Insert(Diagnostico diagnostico);
-        Diagnostico Update(Diagnostico diagnostico);
-        Diagnostico Delete(int id);
+        public ICollection<Diagnostico> GetAll();
+        public Diagnostico GetById(int id);
+        public void Insert(Diagnostico diagnostico);
+        public void Update(Diagnostico diagnostico);
+        public void Delete(int id);
     }
 }

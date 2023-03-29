@@ -7,7 +7,7 @@ namespace Hospital.Model
         [Required]
         public String NumColegiado { get; set; }
 
-        public ICollection<Paciente> Pacientes { get; set; }
-        public ICollection<Cita> Citas { get; set; }
+        public ICollection<Paciente>? Pacientes { get; set; }
+        public ICollection<Cita>? Citas { get; set; }
     }
 }

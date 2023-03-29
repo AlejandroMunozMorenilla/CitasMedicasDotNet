@@ -3,16 +3,18 @@ using HOSPITAL.Data;
 using Hospital.DTO;
 using Hospital.Model;
 using Hospital.Repository;
+using HOSPITAL.Interfaces;
+using HOSPITAL.Exceptions;
 
 namespace HOSPITAL.Services
 {
-    public class DiagnosticService
+    public class DiagnosticoService : IDiagnosticoService
     {
         private readonly IDiagnosticoRepository _repo;
         private readonly HospitalContext _context;
         private readonly IMapper _mapper;
 
-        public DiagnosticService(IDiagnosticoRepository services, HospitalContext context, IMapper mapper)
+        public DiagnosticoService(IDiagnosticoRepository services, HospitalContext context, IMapper mapper)
         {
             _repo = services;
             _context = context;
@@ -27,20 +29,17 @@ namespace HOSPITAL.Services
         {
             return _mapper.Map<Diagnostico, DiagnosticoDTO>(_repo.GetById(id));
         }
-        public DiagnosticoDTO InsertDiagnostico(DiagnosticoDTO diagnosticoDTO)
+        public void InsertDiagnostico(DiagnosticoDTO diagnosticoDTO)
         {
             _repo.Insert(_mapper.Map<DiagnosticoDTO, Diagnostico>(diagnosticoDTO));
-            return diagnosticoDTO;
         }
-        public DiagnosticoDTO DeleteDiagnostico(int id)
+        public void DeleteDiagnostico(int id)
         {
-            return _mapper.Map<Diagnostico, DiagnosticoDTO>(_repo.Delete(id));
+            _repo.Delete(id);
         }
-        public DiagnosticoDTO UpdateDiagnostico(DiagnosticoDTO diagnosticoDTO)
+        public void UpdateDiagnostico(DiagnosticoDTO diagnosticoDTO)
         {
-            Diagnostico paciente = _mapper.Map<DiagnosticoDTO, Diagnostico>(diagnosticoDTO);
-            return _mapper.Map<Diagnostico, DiagnosticoDTO>(_repo.Update(paciente));
+            _repo.Update(_mapper.Map<DiagnosticoDTO, Diagnostico>(diagnosticoDTO));
         }
-
     }
 }

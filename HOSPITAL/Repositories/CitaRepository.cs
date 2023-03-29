@@ -1,6 +1,8 @@
 ﻿using Hospital.Model;
 using Hospital.Repository;
 using HOSPITAL.Data;
+using HOSPITAL.Exceptions;
+using Microsoft.CodeAnalysis;
 
 namespace HOSPITAL.Repositories
 {
@@ -13,13 +15,6 @@ namespace HOSPITAL.Repositories
             _context = context;
         }
 
-        public Cita Delete(int id)
-        {
-            Cita cita = GetById(id);
-            _context.Citas.Remove(cita);
-            return cita;
-        }
-
         public ICollection<Cita> GetAll()
         {
             return _context.Citas.ToList<Cita>();
@@ -30,16 +25,32 @@ namespace HOSPITAL.Repositories
             return _context.Citas.FirstOrDefault(cita => cita.Id == id);
         }
 
-        public Cita Insert(Cita cita)
+        public void Insert(Cita cita)
         {
             _context.Citas.Add(cita);
-            return GetById(cita.Id);
+            if (!Save())
+                throw new InsertException("No se ha podido insertar la cita");
         }
 
-        public Cita Update(Cita cita)
+        public void Update(Cita cita)
         {
             _context.Citas.Update(cita);
-            return GetById(cita.Id);
+            if (!Save())
+                throw new UpdateException("No se ha podido actualizar la cita");
+        }
+
+        public void Delete(int id)
+        {
+            Cita cita = GetById(id);
+            _context.Citas.Remove(cita);
+            if (!Save())
+                throw new DeleteException("No se ha podido eliminar la cita");
+        }
+
+        public bool Save()
+        {
+            int resultado = _context.SaveChanges();
+            return resultado > 0;
         }
     }
 }

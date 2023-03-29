@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.IO.Pipes;
 
 namespace Hospital.Model
 {
@@ -14,7 +12,7 @@ namespace Hospital.Model
         public String Telefono { get; set; }
         public String Direccion { get; set; }
 
-        public ICollection<Medico> Medicos { get; set; }
-        public ICollection<Cita> Citas { get; set; }
+        public ICollection<Medico>? Medicos { get; set; }
+        public ICollection<Cita>? Citas { get; set; }
     }
 }
