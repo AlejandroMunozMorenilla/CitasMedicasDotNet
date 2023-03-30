@@ -9,6 +9,9 @@ namespace Hospital.DTO
         public DateTime FechaHora { get; set; }
         public String MotivoCita { get; set; }
         public int Attribute11 { get; set; }
-        public Diagnostico Diagnostico { get; set; }
+        public DiagnosticoDTO Diagnostico { get; set; }
+        public MedicoDTORec Medico { get; set; }
+        public PacienteDTORec Paciente { get; set; }
+
     }
 }

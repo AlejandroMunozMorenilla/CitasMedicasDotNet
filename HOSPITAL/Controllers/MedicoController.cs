@@ -23,7 +23,7 @@ namespace HOSPITAL.Controllers
             return _medicoService.GetMedicos();
         }
 
-        [HttpGet("{citaId}")]
+        [HttpGet("{medicoId}")]
         [ProducesResponseType(200, Type = typeof(MedicoDTO))]
         public IActionResult GetCitas(int medicoId)
         {

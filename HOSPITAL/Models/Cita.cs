@@ -15,5 +15,11 @@ namespace Hospital.Model
         [ForeignKey("DiagnosticoId")]
         public Diagnostico Diagnostico { get; set; }
         public int DiagnosticoId { get; set; }
+        [ForeignKey("PacienteId")]
+        public Paciente Paciente { get; set; }
+        public int PacienteId { get; set; }
+        [ForeignKey("MedicoId")]
+        public Medico Medico { get; set; }
+        public int MedicoId { get; set; }
     }
 }

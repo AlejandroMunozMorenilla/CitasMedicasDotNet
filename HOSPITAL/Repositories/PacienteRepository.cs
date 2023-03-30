@@ -2,6 +2,7 @@
 using Hospital.Repository;
 using HOSPITAL.Data;
 using HOSPITAL.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace HOSPITAL.Repositories
 {
@@ -16,12 +17,12 @@ namespace HOSPITAL.Repositories
 
         public ICollection<Paciente> GetAll()
         {
-            return _context.Pacientes.ToList<Paciente>();
+            return _context.Pacientes.Include(paciente => paciente.Medicos).ToList<Paciente>();
         }
 
         public Paciente GetById(int id)
         {
-            return _context.Pacientes.FirstOrDefault(paciente => paciente.Id == id);
+            return _context.Pacientes.Include(paciente => paciente.Medicos).FirstOrDefault(paciente => paciente.Id == id);
         }
 
         public void Insert(Paciente paciente)

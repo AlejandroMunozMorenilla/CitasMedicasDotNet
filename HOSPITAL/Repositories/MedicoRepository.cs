@@ -18,12 +18,12 @@ namespace HOSPITAL.Repositories
 
         public ICollection<Medico> GetAll()
         {
-            return _context.Medicos.ToList<Medico>();
+            return _context.Medicos.Include(paciente => paciente.Pacientes).ToList<Medico>();
         }
 
         public Medico GetById(int id)
         {
-            return _context.Medicos.FirstOrDefault(medico => medico.Id == id);
+            return _context.Medicos.Include(paciente => paciente.Pacientes).FirstOrDefault(medico => medico.Id == id);
         }
 
         public void Insert(Medico medico)

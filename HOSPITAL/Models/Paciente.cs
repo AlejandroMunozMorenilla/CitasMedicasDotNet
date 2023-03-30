@@ -10,6 +10,5 @@ namespace Hospital.Model
         public String Direccion { get; set; }
 
         public ICollection<Medico>? Medicos { get; set; }
-        public ICollection<Cita>? Citas { get; set; }
     }
 }

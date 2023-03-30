@@ -18,10 +18,10 @@ namespace HOSPITAL.Mappers
             CreateMap<PacienteDTO, Paciente>();
             CreateMap<MedicoDTO, Medico>();
             CreateMap<DiagnosticoDTO, Diagnostico>();
-            CreateMap<PacienteDTO, PacienteDTORec>();
-            CreateMap<PacienteDTORec, PacienteDTO>();
-            CreateMap<MedicoDTO, MedicoDTORec>();
-            CreateMap<MedicoDTORec, MedicoDTO>();
+            CreateMap<Paciente, PacienteDTORec>();
+            CreateMap<PacienteDTORec, Paciente>();
+            CreateMap<Medico, MedicoDTORec>();
+            CreateMap<MedicoDTORec, Medico>();
         }
     }
 }

@@ -8,6 +8,5 @@ namespace Hospital.Model
         public String NumColegiado { get; set; }
 
         public ICollection<Paciente>? Pacientes { get; set; }
-        public ICollection<Cita>? Citas { get; set; }
     }
 }
