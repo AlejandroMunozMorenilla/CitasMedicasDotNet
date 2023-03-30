@@ -2,7 +2,7 @@
 
 namespace Hospital.DTO
 {
-    public class MedicoDTO : PacienteDTO
+    public class MedicoDTO : UsuarioDTO
     {
         public String NumColegiado { get; set; }
         public ICollection<PacienteDTO> Pacientes { get; set; }
