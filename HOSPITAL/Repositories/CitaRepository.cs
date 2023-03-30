@@ -3,6 +3,7 @@ using Hospital.Repository;
 using HOSPITAL.Data;
 using HOSPITAL.Exceptions;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace HOSPITAL.Repositories
 {
@@ -17,7 +18,11 @@ namespace HOSPITAL.Repositories
 
         public ICollection<Cita> GetAll()
         {
-            return _context.Citas.ToList<Cita>();
+            return _context.Citas
+                .Include(cita => cita.Medico)
+                .Include(cita => cita.Paciente)
+                .Include(cita => cita.Diagnostico)
+                .ToList<Cita>();
         }
 
         public Cita GetById(int id)
